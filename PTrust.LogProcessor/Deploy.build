@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<project name="PTLP" default="deploy">
+	<description>Copies PT Logger target location</description>
+	<property name="src.dir" value="${base.dir}" />	
+	<echo message="Using src.dir ${src.dir}" />	
+	<property name="service.timeout" value="120000" />
+	
+	<!-- this defines a task chain that is executed sequentially -->
+	<target name="deploy" depends="stop_Service,wait,clean_target,copy_src,start_Service" />
+	 
+	<target name="stop_Service">
+		<echo message="Attempting to stop service ${target.serviceName} on ${target.host} " />
+		<servicecontroller action="Stop" service="${target.serviceName}" machine="${target.host}" timeout="200000" verbose="true"/>
+	</target>
+
+	<target name="start_Service">
+		<echo message="Attempting to start service ${target.serviceName} on ${target.host} " />
+		<servicecontroller action="Start" service="${target.serviceName}" machine="${target.host}" timeout="20000" verbose="true"/>
+	</target>
+
+	<target name="wait">
+		<echo message="Sleeping for 20 seconds"></echo>
+		<sleep seconds="20"/>
+	</target>
+
+	<target name="clean_target" verbose="true">
+		<delete failonerror="true">
+			<fileset basedir="${target.dir}">
+			<exclude name="**\logs\**" />
+			<exclude name="**\app_data\**" />
+			<include name="${target.dir}\**" />
+			</fileset>
+		</delete>
+	</target>
+	
+	<target name="copy_src">
+		<copy todir="${target.dir}" overwrite="true" failonerror="true" verbose="true">
+			<fileset basedir="${src.dir}\bin\Debug">
+				<!--Leave behind all the file types that are not necessary for the app to run-->
+				<exclude name="**\obj\**" unless="${property::exists('copy.src.files')}" />
+				<exclude name="**\Properties\**" unless="${property::exists('copy.src.files')}" />
+				<exclude name="**.cs" unless="${property::exists('copy.src.files')}" />
+				<exclude name="**.csproj" unless="${property::exists('copy.src.files')}" />
+				<exclude name="**.pdb" unless="${property::exists('copy.src.files')}" />
+				<exclude name="**.sln" unless="${property::exists('copy.src.files')}" />
+				<exclude name="**.suo" unless="${property::exists('copy.src.files')}" />
+				<exclude name="**.lgp" unless="${property::exists('copy.src.files')}" />
+				<exclude name="**.user" unless="${property::exists('copy.src.files')}" />
+				<exclude name="**\app_data\**" unless="${property::exists('copy.src.files')}" />
+				<include name="**" />
+			</fileset>
+		</copy>
+	</target>
+</project>

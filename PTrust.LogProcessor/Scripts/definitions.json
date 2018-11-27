@@ -1,0 +1,295 @@
+{
+  "rabbit_version": "3.7.0",
+  "users": [
+    {
+      "name": "ptlogger",
+      "password_hash": "FR4e6/Idt/UBcwaSuHRsJ00DvBoqnn3DDRWiAthsQggF2Hv2",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": ""
+    },
+    {
+      "name": "rabbitadmin",
+      "password_hash": "Mjx2DOVYUcT5Y4mxijVaMqSp3mRo06qLYGFRsm99nRKJ6V45",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": "administrator"
+    }
+  ],
+  "vhosts": [ { "name": "/" } ],
+  "permissions": [
+    {
+      "user": "ptlogger",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "rabbitadmin",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "topic_permissions": [],
+  "parameters": [],
+  "policies": [],
+  "queues": [
+    {
+      "name": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.bloombergengineservice",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.intexengineservice",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "PTrust.LogMessages.EnginePayloadMessage:PTrust.LogMessages_ptrust.payload.yieldbookservice",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.networklookupservice",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.performancetrustengineservice",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.kalotaybondoasengineservice",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.yieldbookservice",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.intexrouterservice",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.shapemanagerservice",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "PTrust.Metric.Messages.MetricPayload:PTrust.Metric.Messages_ptrust.metric.yieldbookservice",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.mergentengineservice",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.prepaymentvectorservice",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.masterdataservice",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.apigatewayservice",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.kalotaymunioasengineservice",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "PTrust.LogMessages.LogMessage:PTrust.LogMessages",
+      "vhost": "/",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "PTrust.LogMessages.EnginePayloadMessage:PTrust.LogMessages",
+      "vhost": "/",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "PTrust.Metric.Messages.MetricPayload:PTrust.Metric.Messages",
+      "vhost": "/",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "PTrust.LogMessages.EnginePayloadMessage:PTrust.LogMessages",
+      "vhost": "/",
+      "destination": "PTrust.LogMessages.EnginePayloadMessage:PTrust.LogMessages_ptrust.payload.yieldbookservice",
+      "destination_type": "queue",
+      "routing_key": "ptrust.payload.yieldbookservice",
+      "arguments": {}
+    },
+    {
+      "source": "PTrust.LogMessages.LogMessage:PTrust.LogMessages",
+      "vhost": "/",
+      "destination": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.apigatewayservice",
+      "destination_type": "queue",
+      "routing_key": "ptrust.log.apigatewayservice",
+      "arguments": {}
+    },
+    {
+      "source": "PTrust.LogMessages.LogMessage:PTrust.LogMessages",
+      "vhost": "/",
+      "destination": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.bloombergengineservice",
+      "destination_type": "queue",
+      "routing_key": "ptrust.log.bloombergengineservice",
+      "arguments": {}
+    },
+    {
+      "source": "PTrust.LogMessages.LogMessage:PTrust.LogMessages",
+      "vhost": "/",
+      "destination": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.intexengineservice",
+      "destination_type": "queue",
+      "routing_key": "ptrust.log.intexengineservice",
+      "arguments": {}
+    },
+    {
+      "source": "PTrust.LogMessages.LogMessage:PTrust.LogMessages",
+      "vhost": "/",
+      "destination": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.intexrouterservice",
+      "destination_type": "queue",
+      "routing_key": "ptrust.log.intexrouterservice",
+      "arguments": {}
+    },
+    {
+      "source": "PTrust.LogMessages.LogMessage:PTrust.LogMessages",
+      "vhost": "/",
+      "destination": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.kalotaybondoasengineservice",
+      "destination_type": "queue",
+      "routing_key": "ptrust.log.kalotaybondoasengineservice",
+      "arguments": {}
+    },
+    {
+      "source": "PTrust.LogMessages.LogMessage:PTrust.LogMessages",
+      "vhost": "/",
+      "destination": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.kalotaymunioasengineservice",
+      "destination_type": "queue",
+      "routing_key": "ptrust.log.kalotaymunioasengineservice",
+      "arguments": {}
+    },
+    {
+      "source": "PTrust.LogMessages.LogMessage:PTrust.LogMessages",
+      "vhost": "/",
+      "destination": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.masterdataservice",
+      "destination_type": "queue",
+      "routing_key": "ptrust.log.masterdataservice",
+      "arguments": {}
+    },
+    {
+      "source": "PTrust.LogMessages.LogMessage:PTrust.LogMessages",
+      "vhost": "/",
+      "destination": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.mergentengineservice",
+      "destination_type": "queue",
+      "routing_key": "ptrust.log.mergentengineservice",
+      "arguments": {}
+    },
+    {
+      "source": "PTrust.LogMessages.LogMessage:PTrust.LogMessages",
+      "vhost": "/",
+      "destination": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.networklookupservice",
+      "destination_type": "queue",
+      "routing_key": "ptrust.log.networklookupservice",
+      "arguments": {}
+    },
+    {
+      "source": "PTrust.LogMessages.LogMessage:PTrust.LogMessages",
+      "vhost": "/",
+      "destination": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.performancetrustengineservice",
+      "destination_type": "queue",
+      "routing_key": "ptrust.log.performancetrustengineservice",
+      "arguments": {}
+    },
+    {
+      "source": "PTrust.LogMessages.LogMessage:PTrust.LogMessages",
+      "vhost": "/",
+      "destination": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.prepaymentvectorservice",
+      "destination_type": "queue",
+      "routing_key": "ptrust.log.prepaymentvectorservice",
+      "arguments": {}
+    },
+    {
+      "source": "PTrust.LogMessages.LogMessage:PTrust.LogMessages",
+      "vhost": "/",
+      "destination": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.shapemanagerservice",
+      "destination_type": "queue",
+      "routing_key": "ptrust.log.shapemanagerservice",
+      "arguments": {}
+    },
+    {
+      "source": "PTrust.LogMessages.LogMessage:PTrust.LogMessages",
+      "vhost": "/",
+      "destination": "PTrust.LogMessages.LogMessage:PTrust.LogMessages_ptrust.log.yieldbookservice",
+      "destination_type": "queue",
+      "routing_key": "ptrust.log.yieldbookservice",
+      "arguments": {}
+    },
+    {
+      "source": "PTrust.Metric.Messages.MetricPayload:PTrust.Metric.Messages",
+      "vhost": "/",
+      "destination": "PTrust.Metric.Messages.MetricPayload:PTrust.Metric.Messages_ptrust.metric.yieldbookservice",
+      "destination_type": "queue",
+      "routing_key": "ptrust.metric.yieldbookservice",
+      "arguments": {}
+    }
+  ]
+}

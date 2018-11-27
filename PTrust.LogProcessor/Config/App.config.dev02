@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <sectionGroup name="common">
+      <section name="logging" type="Common.Logging.ConfigurationSectionHandler, Common.Logging" />
+    </sectionGroup>
+    <section name="nlog" type="NLog.Config.ConfigSectionHandler, NLog" />
+    <!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 -->
+    <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+  </configSections>
+  <common>
+    <logging>
+      <factoryAdapter type="Common.Logging.NLog.NLogLoggerFactoryAdapter, Common.Logging.NLog31">
+        <arg key="configType" value="INLINE" />
+      </factoryAdapter>
+    </logging>
+  </common>
+  <nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <extensions>
+      <add assembly="StackifyLib.nLog" />
+    </extensions>
+    <!-- 
+  See http://nlog-project.org/wiki/Configuration_file 
+  for information on customizing logging rules and outputs.
+   -->
+    <variable name="dateFormat" value="${date:format=yyyy-MM-dd HH\:mm\:ss,fff}" />
+    <targets async="true">
+      <target name="asyncFile" xsi:type="AsyncWrapper">
+        <target name="asyncLogfile" xsi:type="File" concurrentWrites="true" fileName="C:\Log\PtLogProcessor\DEV02\Log.txt" archiveFileName="C:\LogArchive\PtLogProcessor\DEV02\Log.{#}.txt" archiveEvery="Day" maxArchiveFiles="30" layout="${dateFormat} [${machinename}] [${threadid:padcharacter= :padding=-2:fixedlength=true}] ${level:uppercase=true:padcharacter= :padding=-5:fixedlength=true} ${logger:shortName=true:padcharacter= :padding=-12:fixedlength=true}  ${message}  ${exception:format=tostring}" />
+      </target>
+      <target name="BloombergEngineServiceMailConfiguration" xsi:type="Mail" html="false" subject="Bloomberg Engine Service Exception [${level:uppercase=true}] [DEV02]" body="${message}" to="awidjaja@performancetrust.com;mhartmann@performancetrust.com" from="bloombergengineservice@performancetrust.com" Encoding="UTF-8" enableSsl="False" smtpAuthentication="None" smtpServer="mail.pt.int" smtpPort="25" />
+      <target name="IntexEngineServiceMailConfiguration" xsi:type="Mail" html="false" subject="Intex Engine Service Exception [${level:uppercase=true}] [DEV02]" body="${message}" to="awidjaja@performancetrust.com;mhartmann@performancetrust.com" from="intexengineservice@performancetrust.com" Encoding="UTF-8" enableSsl="False" smtpAuthentication="None" smtpServer="mail.pt.int" smtpPort="25" />
+      <target name="IntexRouterServiceMailConfiguration" xsi:type="Mail" html="false" subject="Intex Router Service Exception [${level:uppercase=true}] [DEV02]" body="${message}" to="awidjaja@performancetrust.com;mhartmann@performancetrust.com" from="intexrouterservice@performancetrust.com" Encoding="UTF-8" enableSsl="False" smtpAuthentication="None" smtpServer="mail.pt.int" smtpPort="25" />
+      <target name="KalotayBondOasEngineServiceMailConfiguration" xsi:type="Mail" html="false" subject="Kalotay Bond Oas Engine Service Exception [${level:uppercase=true}] [DEV02]" body="${message}" to="awidjaja@performancetrust.com;mhartmann@performancetrust.com" from="kalotaybondoasengineservice@performancetrust.com" Encoding="UTF-8" enableSsl="False" smtpAuthentication="None" smtpServer="mail.pt.int" smtpPort="25" />
+      <target name="KalotayMuniOasEngineServiceMailConfiguration" xsi:type="Mail" html="false" subject="Kalotay Muni Oas Engine Service Exception [${level:uppercase=true}] [DEV02]" body="${message}" to="awidjaja@performancetrust.com;mhartmann@performancetrust.com" from="kalotaymunioasengineservice@performancetrust.com" Encoding="UTF-8" enableSsl="False" smtpAuthentication="None" smtpServer="mail.pt.int" smtpPort="25" />
+      <target name="MasterDataServiceMailConfiguration" xsi:type="Mail" html="false" subject="Master Data Service Exception [${level:uppercase=true}] [DEV02]" body="${message}" to="psandler@performancetrust.com;awidjaja@performancetrust.com;jklimek@performancetrust.com;mhartmann@performancetrust.com" from="masterdataservice@performancetrust.com" Encoding="UTF-8" enableSsl="False" smtpAuthentication="None" smtpServer="mail.pt.int" smtpPort="25" />
+      <target name="MergentEngineServiceMailConfiguration" xsi:type="Mail" html="false" subject="Mergent Engine Service Exception [${level:uppercase=true}] [DEV02]" body="${message}" to="awidjaja@performancetrust.com;mhartmann@performancetrust.com" from="mergentengineservice@performancetrust.com" Encoding="UTF-8" enableSsl="False" smtpAuthentication="None" smtpServer="mail.pt.int" smtpPort="25" />
+      <target name="PerformanceTrustEngineServiceMailConfiguration" xsi:type="Mail" html="false" subject="Performance Trust Engine Service Exception [${level:uppercase=true}] [DEV02]" body="${message}" to="awidjaja@performancetrust.com;mhartmann@performancetrust.com" from="performancetrustengineservice@performancetrust.com" Encoding="UTF-8" enableSsl="False" smtpAuthentication="None" smtpServer="mail.pt.int" smtpPort="25" />
+      <target name="PrepaymentVectorServiceMailConfiguration" xsi:type="Mail" html="false" subject="Prepayment Vector Service Exception [${level:uppercase=true}] [DEV02]" body="${message}" to="awidjaja@performancetrust.com;mhartmann@performancetrust.com" from="prepaymentvectorservice@performancetrust.com" Encoding="UTF-8" enableSsl="False" smtpAuthentication="None" smtpServer="mail.pt.int" smtpPort="25" />
+      <target name="YieldBookServiceMailConfiguration" xsi:type="Mail" html="false" subject="Yield Book Service Exception [${level:uppercase=true}] [DEV02]" body="${message}" to="psandler@performancetrust.com;awidjaja@performancetrust.com;jklimek@performancetrust.com;mhartmann@performancetrust.com" from="yieldbookservice@performancetrust.com" Encoding="UTF-8" enableSsl="False" smtpAuthentication="None" smtpServer="mail.pt.int" smtpPort="25" />      
+      <target name="stackify" xsi:type="StackifyTarget" globalContextKeys="" mappedContextKeys="" callContextKeys="" logMethodNames="true" />
+    </targets>
+    <rules>
+      <logger name="*" minlevel="Info" writeTo="asyncFile" />
+      <logger name="PTrust.LogProcessor.Processor.BloombergEngineServiceLogProcessor" minlevel="Error" writeTo="BloombergEngineServiceMailConfiguration,stackify" />
+      <logger name="PTrust.LogProcessor.Processor.IntexEngineServiceLogProcessor" minlevel="Warn" writeTo="IntexEngineServiceMailConfiguration,stackify" />
+      <logger name="PTrust.LogProcessor.Processor.IntexRouterServiceLogProcessor" minlevel="Warn" writeTo="IntexRouterServiceMailConfiguration,stackify" />
+      <logger name="PTrust.LogProcessor.Processor.KalotayBondOasEngineServiceLogProcessor" minlevel="Warn" writeTo="KalotayBondOasEngineServiceMailConfiguration,stackify" />
+      <logger name="PTrust.LogProcessor.Processor.KalotayMuniOasEngineServiceLogProcessor" minlevel="Warn" writeTo="KalotayMuniOasEngineServiceMailConfiguration,stackify" />
+      <logger name="PTrust.LogProcessor.Processor.MasterDataServiceLogProcessor" minlevel="Warn" writeTo="MasterDataServiceMailConfiguration,stackify" />
+      <logger name="PTrust.LogProcessor.Processor.MergentEngineServiceLogProcessor" minlevel="Warn" writeTo="MergentEngineServiceMailConfiguration,stackify" />
+      <logger name="PTrust.LogProcessor.Processor.PerformanceTrustEngineServiceLogProcessor" minlevel="Warn" writeTo="PerformanceTrustEngineServiceMailConfiguration,stackify" />
+      <logger name="PTrust.LogProcessor.Processor.PrepaymentVectorServiceLogProcessor" minlevel="Warn" writeTo="PrepaymentVectorServiceMailConfiguration,stackify" />
+      <logger name="PTrust.LogProcessor.Processor.YieldBookServiceLogProcessor" minlevel="Warn" writeTo="YieldBookServiceMailConfiguration,stackify" />
+    </rules>
+  </nlog>
+  <startup>
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.6.1" />
+  </startup>
+  <appSettings>
+    <!-- Stackify -->
+    <add key="Stackify.ApiKey" value="8Ei8Xl5En3Qm4Dl6Zi5Ba8Df9Za7Rg2Up7Lz6Mz" />
+    <add key="Stackify.AppName" value="PtLogProcessor" />
+    <add key="Stackify.Environment" value="DEV02" />
+
+    <add key="ServiceName" value="PTLogProcessor_DEV02" />
+    
+    <add key="PtLoggerEndpoint" value="host=DEVUBUCLUSTER.pt.int:5673;username=ptlogger;password=PtL0gg3r" />
+
+    <add key="BloombergEngineServiceId" value="BBES" />
+    <add key="IntexEngineServiceId" value="IES" />
+    <add key="IntexRouterServiceId" value="IRS" />
+    <add key="KalotayBondOasEngineServiceId" value="KBES" />
+    <add key="KalotayMuniOasEngineServiceId" value="KMES" />
+    <add key="MasterDataServiceId" value="MDS" />
+    <add key="MergentEngineServiceId" value="MES" />
+    <add key="PerformanceTrustEngineServiceId" value="PTES" />
+    <add key="PrepaymentVectorServiceId" value="PPVS" />
+    <add key="ShapeManagerServiceId" value="SMS" />
+    <add key="YieldBookServiceId" value="YBS" />
+
+    <add key="YieldBookEnginePayloadRepository" value="\\\\ptrepo\\log_output\\YieldBookEngineService\\DEV02" />
+  </appSettings>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-10.0.0.0" newVersion="10.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="NLog" publicKeyToken="5120e14c03d0593c" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-3.1.0.0" newVersion="3.1.0.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+</configuration>

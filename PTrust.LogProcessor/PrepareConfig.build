@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<project name="PTLP" default="prepare_config">
+	<description>Swap configuration file based on target deploymnent environment</description>
+	<echo message="Using base.dir ${base.dir}" />	
+	<property name="service.timeout" value="120000" />
+	
+	<!-- this defines a task chain that is executed sequentially -->
+	<target name="prepare_config" depends="manage_configs" />
+	
+	<target name="manage_configs">	
+		<delete  file="${base.dir}\App.config" failonerror="true" />		
+		<!--Rename the environment-specific config for this environment so that it's the one used by the app at run-time-->
+		<copy file="${base.dir}\Config\App.config.${TargetEnvironment}" tofile="${base.dir}\App.config" />
+	</target>
+</project>
